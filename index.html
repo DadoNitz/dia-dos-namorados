@@ -597,6 +597,128 @@
     }
     .diary-empty .de-icon { font-size: 60px; display: block; margin-bottom: 14px; opacity: .45; }
 
+    /* Controles admin nas cards */
+    .diary-admin-bar {
+      display: flex; gap: 8px; padding: 10px 14px;
+      border-top: 2px dashed var(--panel-mid);
+    }
+    .diary-admin-btn {
+      background: var(--panel-mid); border: 2px solid var(--border);
+      color: var(--cream); font-family: var(--tf); font-size: 17px;
+      padding: 4px 12px; cursor: pointer; transition: .1s;
+    }
+    .diary-admin-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .diary-del-btn:hover   { border-color: var(--red);  color: var(--red); }
+
+    /* Badge admin mode */
+    .admin-badge {
+      position: fixed; top: 56px; left: 0; right: 0; z-index: 900;
+      background: rgba(200,0,60,.9); padding: 5px;
+      text-align: center; font-family: var(--pf); font-size: 7px;
+      color: #fff; letter-spacing: 1px;
+      display: none;
+    }
+    body.admin-mode .admin-badge { display: block; }
+
+    /* FAB (botão flutuante + ) */
+    #admin-fab {
+      position: fixed; bottom: 76px; left: 16px; z-index: 700;
+      display: none;
+    }
+    body.admin-mode #admin-fab { display: block; }
+    .fab-btn {
+      width: 54px; height: 54px;
+      background: var(--panel); border: 3px solid var(--gold);
+      box-shadow: inset 1px 1px 0 var(--hi), 4px 4px 0 rgba(0,0,0,.7);
+      font-size: 28px; line-height: 48px; text-align: center;
+      cursor: pointer; transition: transform .1s, box-shadow .1s;
+      color: var(--gold);
+    }
+    .fab-btn:hover { transform: translate(-2px,-2px); box-shadow: inset 1px 1px 0 var(--hi), 6px 6px 0 rgba(0,0,0,.7); }
+    .fab-btn:active{ transform: translate(1px,1px); }
+
+    /* Modal admin */
+    #admin-modal {
+      position: fixed; inset: 0; background: rgba(0,0,0,.92);
+      z-index: 4000; display: none;
+      align-items: center; justify-content: center; padding: 16px;
+    }
+    #admin-modal.open { display: flex; }
+    .admin-inner {
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), 0 0 80px rgba(0,0,0,.9);
+      padding: 28px 28px 24px;
+      width: min(560px, 96vw); max-height: 92vh; overflow-y: auto;
+      position: relative;
+    }
+    .admin-title {
+      font-family: var(--pf); font-size: 9px; color: var(--gold);
+      margin-bottom: 24px; text-shadow: 2px 2px 0 #000;
+    }
+    .admin-close {
+      position: absolute; top: 12px; right: 14px;
+      font-family: var(--tf); font-size: 22px; color: var(--red);
+      background: none; border: 2px solid var(--red); padding: 2px 8px;
+      cursor: pointer;
+    }
+    .admin-close:hover { background: var(--red); color: #fff; }
+
+    /* Campos do formulário */
+    .f-group { margin-bottom: 16px; }
+    .f-label {
+      display: block; font-family: var(--pf); font-size: 6px;
+      color: var(--gold); margin-bottom: 6px;
+    }
+    .f-input, .f-textarea {
+      width: 100%;
+      background: var(--panel-mid); border: 2px solid var(--border);
+      box-shadow: inset 1px 1px 0 rgba(0,0,0,.4);
+      color: var(--cream); font-family: var(--tf); font-size: 20px;
+      padding: 8px 12px; outline: none;
+    }
+    .f-input:focus, .f-textarea:focus { border-color: var(--gold); }
+    .f-textarea { resize: vertical; min-height: 110px; line-height: 1.5; }
+    .f-row { display: grid; grid-template-columns: 80px 1fr; gap: 12px; }
+
+    /* Foto upload */
+    .f-photo-area {
+      border: 2px dashed var(--border); padding: 14px;
+      text-align: center; cursor: pointer; transition: border-color .2s;
+    }
+    .f-photo-area:hover { border-color: var(--gold); }
+    .f-photo-area input { display: none; }
+    .f-photo-label {
+      font-family: var(--tf); font-size: 20px; color: var(--border);
+      cursor: pointer; display: block;
+    }
+    #f-foto-preview {
+      max-width: 100%; max-height: 180px; object-fit: cover;
+      border: 2px solid var(--border); margin-top: 10px; display: none;
+    }
+    .f-remove-photo {
+      font-family: var(--tf); font-size: 17px; color: var(--red);
+      background: none; border: 1px solid var(--red);
+      padding: 2px 8px; cursor: pointer; margin-top: 6px; display: none;
+    }
+
+    /* Botões do form */
+    .f-actions { display: flex; gap: 10px; margin-top: 22px; }
+    .f-save {
+      flex: 1; background: var(--grass-dk); border: 3px solid var(--gold);
+      box-shadow: inset 1px 1px 0 var(--hi), 4px 4px 0 rgba(0,0,0,.5);
+      color: var(--gold); font-family: var(--pf); font-size: 8px;
+      padding: 14px; cursor: pointer; transition: transform .1s;
+    }
+    .f-save:hover  { transform: translate(-2px,-2px); }
+    .f-save:active { transform: translate(1px,1px); }
+    .f-cancel {
+      background: var(--panel-mid); border: 2px solid var(--border);
+      color: var(--cream); font-family: var(--tf); font-size: 20px;
+      padding: 10px 18px; cursor: pointer;
+    }
+    .f-cancel:hover { border-color: var(--red); color: var(--red); }
+
     /* ========================================================
        RODAPÉ
     ======================================================== */
@@ -804,6 +926,66 @@
     Feito com ❤️ em Stardew Valley &nbsp;•&nbsp; 14 de Junho de 2025
   </p>
 </footer>
+
+<!-- ============================================================
+     ADMIN — BADGE, FAB E MODAL
+============================================================ -->
+<div class="admin-badge">✦ MODO ADMIN ATIVO — clique no logo para sair ✦</div>
+
+<div id="admin-fab">
+  <button class="fab-btn" onclick="openEntryForm(null)" title="Nova entrada no diário">＋</button>
+</div>
+
+<div id="admin-modal">
+  <div class="admin-inner">
+    <button class="admin-close" onclick="closeEntryForm()">✕</button>
+    <h2 class="admin-title" id="admin-modal-title">📔 Nova Entrada no Diário</h2>
+
+    <form id="diary-form" onsubmit="saveEntryForm(event)">
+
+      <div class="f-row">
+        <div class="f-group">
+          <label class="f-label" for="f-emoji">Emoji</label>
+          <input class="f-input" id="f-emoji" type="text" maxlength="4" value="💖" style="text-align:center;font-size:28px">
+        </div>
+        <div class="f-group">
+          <label class="f-label" for="f-date">Data</label>
+          <input class="f-input" id="f-date" type="date">
+        </div>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="f-title">Título</label>
+        <input class="f-input" id="f-title" type="text" placeholder="Ex: Nosso passeio no parque" required>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="f-tag">Tag / Categoria</label>
+        <input class="f-input" id="f-tag" type="text" placeholder="Ex: Passeio, Aniversário, Viagem...">
+      </div>
+
+      <div class="f-group">
+        <label class="f-label" for="f-text">Texto</label>
+        <textarea class="f-textarea" id="f-text" placeholder="Conte o que aconteceu nesse dia..."></textarea>
+      </div>
+
+      <div class="f-group">
+        <label class="f-label">Foto (opcional)</label>
+        <div class="f-photo-area" onclick="document.getElementById('f-foto-input').click()">
+          <input type="file" id="f-foto-input" accept="image/*" onchange="handlePhotoUpload(this)">
+          <span class="f-photo-label">📷 Clique para selecionar uma foto</span>
+          <img id="f-foto-preview" src="" alt="preview">
+          <button type="button" class="f-remove-photo" id="f-remove-photo" onclick="removePhoto(event)">✕ Remover foto</button>
+        </div>
+      </div>
+
+      <div class="f-actions">
+        <button type="submit" class="f-save">✦ SALVAR ENTRADA ✦</button>
+        <button type="button" class="f-cancel" onclick="closeEntryForm()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 <!-- ============================================================
      LIGHTBOX
@@ -1316,32 +1498,216 @@ function openGift() {
   showToast('✦ Presente Aberto!', 'Espero que você goste! 💖');
 }
 
+// ---- ADMIN ----
+// Senha de acesso ao modo admin (mude para uma senha sua!)
+const ADMIN_PASSWORD = "stardew";
+let isAdmin = false;
+let editingId = null;
+let photoBase64 = null;
+let logoClicks = 0;
+let logoTimer = null;
+const diaryPhotoData = []; // índice: posição → dados da foto do diário
+
+function initAdmin() {
+  const logo = document.querySelector('.nav-logo');
+  if (!logo) return;
+  logo.style.cursor = 'pointer';
+  logo.title = 'Dica secreta: clique 5x para o modo admin 🔐';
+  logo.addEventListener('click', () => {
+    logoClicks++;
+    clearTimeout(logoTimer);
+    logoTimer = setTimeout(() => { logoClicks = 0; }, 2200);
+    if (logoClicks >= 5) {
+      logoClicks = 0;
+      promptAdmin();
+    }
+  });
+}
+
+function promptAdmin() {
+  if (isAdmin) { toggleAdmin(false); return; }
+  const pass = prompt('🔐 Senha do diário:');
+  if (pass === null) return;
+  if (pass === ADMIN_PASSWORD) {
+    toggleAdmin(true);
+    showToast('✦ Modo Admin ativo!', 'Você pode editar o diário agora. ✏️');
+  } else {
+    showToast('✦ Senha incorreta', 'Tente novamente. 🔒');
+  }
+}
+
+function toggleAdmin(on) {
+  isAdmin = on;
+  document.body.classList.toggle('admin-mode', on);
+  buildDiario();
+}
+
+// ---- CRUD localStorage ----
+function loadSavedEntries() {
+  try { return JSON.parse(localStorage.getItem('diario_entries') || '[]'); }
+  catch { return []; }
+}
+function persistEntries(arr) {
+  localStorage.setItem('diario_entries', JSON.stringify(arr));
+}
+
+// ---- FORMULÁRIO ----
+function openEntryForm(id) {
+  editingId = id || null;
+  photoBase64 = null;
+
+  const title = document.getElementById('admin-modal-title');
+  const preview = document.getElementById('f-foto-preview');
+  const removeBtn = document.getElementById('f-remove-photo');
+  document.getElementById('f-foto-input').value = '';
+  preview.style.display = 'none';
+  removeBtn.style.display = 'none';
+
+  if (editingId) {
+    const entry = loadSavedEntries().find(e => e.id === editingId);
+    if (!entry) return;
+    title.textContent = '✏️ Editar Entrada';
+    document.getElementById('f-emoji').value  = entry.emoji || '💖';
+    document.getElementById('f-date').value   = entry.isoDate || '';
+    document.getElementById('f-title').value  = entry.title || '';
+    document.getElementById('f-tag').value    = entry.tag || '';
+    document.getElementById('f-text').value   = entry.text || '';
+    if (entry.foto) {
+      photoBase64 = entry.foto;
+      preview.src = entry.foto; preview.style.display = 'block';
+      removeBtn.style.display = 'inline-block';
+    }
+  } else {
+    title.textContent = '📔 Nova Entrada no Diário';
+    document.getElementById('f-emoji').value  = '💖';
+    document.getElementById('f-date').value   = new Date().toISOString().slice(0,10);
+    document.getElementById('f-title').value  = '';
+    document.getElementById('f-tag').value    = '';
+    document.getElementById('f-text').value   = '';
+  }
+
+  document.getElementById('admin-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEntryForm() {
+  document.getElementById('admin-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  editingId = null;
+  photoBase64 = null;
+}
+
+function handlePhotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 6 * 1024 * 1024) {
+    alert('Imagem muito grande! Use fotos menores que 6 MB.'); return;
+  }
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    photoBase64 = e.target.result;
+    const preview = document.getElementById('f-foto-preview');
+    const removeBtn = document.getElementById('f-remove-photo');
+    preview.src = photoBase64; preview.style.display = 'block';
+    removeBtn.style.display = 'inline-block';
+  };
+  reader.readAsDataURL(file);
+}
+
+function removePhoto(e) {
+  e.stopPropagation();
+  photoBase64 = null;
+  const preview = document.getElementById('f-foto-preview');
+  const removeBtn = document.getElementById('f-remove-photo');
+  document.getElementById('f-foto-input').value = '';
+  preview.style.display = 'none';
+  removeBtn.style.display = 'none';
+}
+
+function saveEntryForm(e) {
+  e.preventDefault();
+  const isoDate = document.getElementById('f-date').value;
+  const dateStr = isoDate
+    ? new Date(isoDate + 'T12:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })
+    : '';
+
+  const entry = {
+    id:      editingId || Date.now().toString(),
+    emoji:   document.getElementById('f-emoji').value || '💖',
+    date:    dateStr,
+    isoDate: isoDate,
+    title:   document.getElementById('f-title').value.trim(),
+    tag:     document.getElementById('f-tag').value.trim(),
+    text:    document.getElementById('f-text').value.trim(),
+    foto:    photoBase64 || null
+  };
+
+  if (!entry.title) { alert('Adicione um título!'); return; }
+
+  const all = loadSavedEntries();
+  if (editingId) {
+    const idx = all.findIndex(e => e.id === editingId);
+    if (idx >= 0) all[idx] = entry; else all.push(entry);
+  } else {
+    all.push(entry);
+  }
+
+  persistEntries(all);
+  closeEntryForm();
+  buildDiario();
+  showToast('✦ Entrada salva!', 'O diário foi atualizado. 📔');
+}
+
+function deleteEntry(id) {
+  if (!confirm('Deletar esta entrada do diário?')) return;
+  persistEntries(loadSavedEntries().filter(e => e.id !== id));
+  buildDiario();
+  showToast('✦ Entrada removida', 'Deletado com sucesso. 🗑️');
+}
+
 // ---- DIÁRIO ----
 function buildDiario() {
   const tl = document.getElementById('diary-timeline');
   if (!tl) return;
+  tl.innerHTML = '';
+  diaryPhotoData.length = 0;
 
-  if (DIARIO.length === 0) {
+  const saved = loadSavedEntries()
+    .sort((a, b) => (a.isoDate || '').localeCompare(b.isoDate || ''));
+
+  const all = [...DIARIO, ...saved];
+
+  if (all.length === 0) {
     tl.innerHTML = `
       <div class="diary-empty" style="width:100%">
         <span class="de-icon">📔</span>
         <p>O diário ainda está em branco...</p>
         <p style="font-size:18px;margin-top:10px;color:var(--border)">
-          Adicione entradas no array <strong>DIARIO</strong> no código para começar!
+          ${isAdmin
+            ? 'Clique no <strong style="color:var(--gold)">＋</strong> para adicionar a primeira entrada!'
+            : 'Clique no logo <strong style="color:var(--gold)">5×</strong> para entrar no modo admin e adicionar memórias.'}
         </p>
       </div>`;
     return;
   }
 
-  DIARIO.forEach((entry, i) => {
+  all.forEach((entry) => {
+    const isSaved = !!entry.id;
     const card = document.createElement('div');
     card.className = 'diary-entry';
 
-    const fotoHtml = entry.foto
-      ? `<img class="diary-photo" src="${entry.foto}" alt="${entry.title}"
-             onclick="lbOpenSingle('${entry.foto}','${entry.date}','${entry.title}','${(entry.text||'').replace(/'/g,"\\'")}')
-">`
-      : '';
+    let fotoHtml = '';
+    if (entry.foto) {
+      const pIdx = diaryPhotoData.length;
+      diaryPhotoData.push({ src: entry.foto, date: entry.date, caption: entry.title, desc: entry.text || '' });
+      fotoHtml = `<img class="diary-photo" src="${entry.foto}" alt="${entry.title}" onclick="lbOpenDiary(${pIdx})">`;
+    }
+
+    const adminBar = (isAdmin && isSaved) ? `
+      <div class="diary-admin-bar">
+        <button class="diary-admin-btn" onclick="openEntryForm('${entry.id}')">✏️ Editar</button>
+        <button class="diary-admin-btn diary-del-btn" onclick="deleteEntry('${entry.id}')">🗑️ Deletar</button>
+      </div>` : '';
 
     card.innerHTML = `
       <div class="diary-dot">
@@ -1354,27 +1720,26 @@ function buildDiario() {
         </div>
         <div class="diary-body">
           <p class="diary-title">${entry.title}</p>
-          <p class="diary-text">${entry.text || ''}</p>
+          <p class="diary-text">${(entry.text || '').replace(/\n/g, '<br>')}</p>
         </div>
-        ${fotoHtml}
+        ${fotoHtml}${adminBar}
       </div>`;
 
     tl.appendChild(card);
   });
 }
 
-// Abre lightbox com uma única imagem (para o diário)
-function lbOpenSingle(src, date, caption, desc) {
-  const idx = FOTOS.findIndex(f => f.src === src);
-  if (idx >= 0) { lbOpen(idx); return; }
-  // Foto só do diário — mostra no lightbox diretamente
-  const lb = document.getElementById('lightbox');
+// Abre lightbox para foto do diário (usa índice em diaryPhotoData)
+function lbOpenDiary(idx) {
+  const d = diaryPhotoData[idx];
+  if (!d) return;
+  const lb  = document.getElementById('lightbox');
   const img = document.getElementById('lb-img');
   const ph  = document.getElementById('lb-placeholder');
-  img.src = src; img.style.display = 'block'; ph.style.display = 'none';
-  document.getElementById('lb-date').textContent    = date || '';
-  document.getElementById('lb-caption').textContent = caption || '';
-  document.getElementById('lb-desc').textContent    = desc || '';
+  img.src = d.src; img.style.display = 'block'; ph.style.display = 'none';
+  document.getElementById('lb-date').textContent    = d.date;
+  document.getElementById('lb-caption').textContent = d.caption;
+  document.getElementById('lb-desc').textContent    = d.desc;
   lb.classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1387,6 +1752,7 @@ document.addEventListener('DOMContentLoaded', () => {
   buildGallery();
   buildDiario();
   buildLetter();
+  initAdmin();
   document.getElementById('letter-dear').textContent = `Para: ${NOME} ❤️`;
   document.getElementById('letter-sign').textContent  = `Com todo meu amor, ${MEU_NOME}`;
 });
