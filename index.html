@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💖 Feliz Dia dos Namorados</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    /* ========================================================
+       RESET & VARIÁVEIS
+    ======================================================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --sky:       #a8d8ea;
+      --grass:     #5a9c52;
+      --grass-dk:  #3a6b35;
+      --bg-dk:     #1e3318;
+      --panel:     #2d1a0e;
+      --panel-mid: #4a2c12;
+      --border:    #8c6432;
+      --hi:        #c8a468;
+      --cream:     #f5e6c8;
+      --gold:      #e8c84a;
+      --red:       #c8003c;
+      --pink:      #ff85a2;
+      --pf:        'Press Start 2P', monospace;
+      --tf:        'VT323', monospace;
+    }
+
+    body {
+      font-family: var(--tf);
+      background: var(--grass-dk);
+      color: var(--cream);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ========================================================
+       SCROLLBAR
+    ======================================================== */
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-track { background: var(--panel); }
+    ::-webkit-scrollbar-thumb { background: var(--panel-mid); border: 2px solid var(--border); }
+
+    /* ========================================================
+       PIXEL BOX UTILITÁRIO
+    ======================================================== */
+    .pbox {
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--panel-mid), 5px 5px 0 rgba(0,0,0,.55);
+    }
+
+    /* ========================================================
+       NAVEGAÇÃO
+    ======================================================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      background: var(--panel);
+      border-bottom: 4px solid var(--border);
+      padding: 8px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .nav-logo {
+      font-family: var(--pf); font-size: 7px; color: var(--gold);
+      text-shadow: 2px 2px 0 #000;
+      white-space: nowrap;
+    }
+    .nav-links { display: flex; gap: 8px; list-style: none; flex-wrap: wrap; }
+    .nav-links a {
+      font-family: var(--tf); font-size: 18px;
+      color: var(--cream); text-decoration: none;
+      padding: 3px 8px;
+      border: 2px solid transparent;
+      transition: color .1s, border-color .1s;
+    }
+    .nav-links a:hover { color: var(--gold); border-color: var(--gold); }
+
+    /* Medidor de corações */
+    .heart-meter { display: flex; align-items: center; gap: 3px; flex-shrink: 0; }
+    .hm-label { font-family: var(--tf); font-size: 16px; color: var(--pink); margin-right: 4px; white-space: nowrap; }
+    .hm-icon { font-size: 13px; opacity: .25; transition: opacity .3s, transform .3s; }
+    .hm-icon.lit { opacity: 1; transform: scale(1.1); }
+
+    /* ========================================================
+       HERO
+    ======================================================== */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(to bottom, var(--sky) 0%, var(--sky) 58%, var(--grass) 58%, var(--grass) 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 60px;
+    }
+
+    /* Nuvens pixel */
+    .cloud {
+      position: absolute; background: #fff; opacity: .95;
+      image-rendering: pixelated;
+      animation: cloudDrift linear infinite;
+    }
+    @keyframes cloudDrift {
+      from { transform: translateX(-120%); }
+      to   { transform: translateX(110vw); }
+    }
+
+    /* Grama decorativa */
+    .grass-strip {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+      overflow: hidden;
+    }
+    .grass-blade {
+      position: absolute; bottom: 0;
+      width: 8px; background: #4a8c42;
+      transform-origin: bottom center;
+      animation: sway 2s ease-in-out infinite alternate;
+    }
+    @keyframes sway {
+      from { transform: rotate(-6deg); }
+      to   { transform: rotate(6deg); }
+    }
+
+    /* Flores clicáveis */
+    .hero-flower {
+      position: absolute; bottom: 58px;
+      font-size: 28px; cursor: pointer;
+      transition: transform .2s;
+      z-index: 5; user-select: none;
+    }
+    .hero-flower:hover { transform: scale(1.35) rotate(8deg); }
+
+    /* Personagem andando */
+    .walker {
+      position: absolute; bottom: 60px;
+      font-size: 36px; z-index: 6;
+      animation: walk 12s linear infinite;
+      user-select: none;
+    }
+    @keyframes walk {
+      0%   { left: -60px; transform: scaleX(1); }
+      49%  { left: calc(100% + 60px); transform: scaleX(1); }
+      50%  { left: calc(100% + 60px); transform: scaleX(-1); }
+      99%  { left: -60px; transform: scaleX(-1); }
+      100% { left: -60px; transform: scaleX(1); }
+    }
+
+    /* Estrelas (céu) */
+    .star {
+      position: absolute; background: #fff;
+      width: 4px; height: 4px;
+      animation: twinkle 2s ease-in-out infinite alternate;
+      display: none;
+    }
+    body.winter .star, body.noite .star { display: block; }
+    @keyframes twinkle {
+      from { opacity: .3; }
+      to   { opacity: 1; }
+    }
+
+    /* Conteúdo hero */
+    .hero-content {
+      position: relative; z-index: 10;
+      text-align: center; padding: 24px;
+    }
+    .hero-eyebrow {
+      font-family: var(--tf); font-size: 26px;
+      color: var(--pink); margin-bottom: 12px;
+      text-shadow: 2px 2px 0 #000;
+    }
+    .hero-title {
+      font-family: var(--pf);
+      font-size: clamp(13px, 3.5vw, 30px);
+      color: var(--gold);
+      text-shadow: 3px 3px 0 #000, -1px -1px 0 #000;
+      line-height: 2; margin-bottom: 24px;
+    }
+    .hero-hearts { font-size: 36px; animation: pulse 1.1s ease-in-out infinite alternate; }
+    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.18); } }
+
+    .scroll-hint {
+      position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%);
+      font-family: var(--tf); font-size: 19px; color: var(--cream);
+      animation: bounce 1.6s ease-in-out infinite; z-index: 10;
+      text-shadow: 1px 1px 0 #000;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    /* ========================================================
+       CORAÇÃO FLUTUANTE (click + ambient)
+    ======================================================== */
+    .fheart {
+      position: fixed; pointer-events: none; z-index: 9999;
+      font-size: 22px; animation: fheartUp linear forwards;
+    }
+    @keyframes fheartUp {
+      0%   { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-220px) scale(.3) rotate(30deg); opacity: 0; }
+    }
+    .cheart {
+      position: fixed; pointer-events: none; z-index: 9999;
+      animation: cheartUp .9s ease-out forwards;
+    }
+    @keyframes cheartUp {
+      0%   { transform: translateY(0) scale(1.2); opacity: 1; }
+      100% { transform: translateY(-90px) scale(.2); opacity: 0; }
+    }
+
+    /* ========================================================
+       SEÇÕES BASE
+    ======================================================== */
+    section { padding: 90px 20px 70px; position: relative; }
+    .section-title {
+      font-family: var(--pf); font-size: clamp(9px, 2vw, 16px);
+      color: var(--gold); text-align: center; margin-bottom: 48px;
+      text-shadow: 2px 2px 0 #000;
+    }
+    .section-title span { display: block; font-size: .6em; color: var(--pink); margin-top: 8px; }
+
+    /* ========================================================
+       HISTÓRIA — DIÁLOGOS
+    ======================================================== */
+    #historia { background: linear-gradient(180deg, var(--grass-dk), var(--bg-dk)); }
+
+    .story-container {
+      max-width: 720px; margin: 0 auto;
+      position: relative; min-height: 260px;
+    }
+    .story-box {
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--panel-mid), 6px 6px 0 rgba(0,0,0,.6);
+      padding: 24px 28px 36px;
+      transition: opacity .3s;
+    }
+    .story-speaker {
+      font-family: var(--pf); font-size: 7px; color: var(--gold);
+      margin-bottom: 12px; display: block;
+    }
+    .story-text {
+      font-family: var(--tf); font-size: 23px; line-height: 1.6;
+      color: var(--cream); min-height: 80px;
+    }
+    .story-arrow {
+      position: absolute; bottom: 18px; right: 22px;
+      font-size: 16px; color: var(--gold);
+      animation: blink 1s step-start infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .story-controls {
+      display: flex; justify-content: center; gap: 12px; margin-top: 20px;
+    }
+    .story-btn {
+      background: var(--panel); border: 3px solid var(--border);
+      box-shadow: inset 1px 1px 0 var(--hi), 3px 3px 0 rgba(0,0,0,.5);
+      color: var(--cream); font-family: var(--tf); font-size: 20px;
+      padding: 8px 20px; cursor: pointer; transition: transform .1s;
+    }
+    .story-btn:hover { color: var(--gold); border-color: var(--gold); }
+    .story-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 rgba(0,0,0,.5); }
+    .story-progress {
+      font-family: var(--tf); font-size: 18px; color: var(--panel-mid);
+      display: flex; align-items: center; gap: 4px; margin-top: 8px;
+      justify-content: center;
+    }
+    .story-dot {
+      width: 10px; height: 10px; border-radius: 0;
+      background: var(--panel-mid); border: 2px solid var(--border);
+      transition: background .3s;
+    }
+    .story-dot.active { background: var(--gold); }
+
+    /* ========================================================
+       AMOR — INVENTÁRIO
+    ======================================================== */
+    #amor { background: linear-gradient(180deg, var(--bg-dk), #1a3010); }
+
+    .inv-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 14px; max-width: 860px; margin: 0 auto;
+    }
+    .inv-item {
+      background: var(--panel);
+      border: 3px solid var(--border);
+      box-shadow: inset 1px 1px 0 var(--hi), 4px 4px 0 rgba(0,0,0,.5);
+      padding: 18px 10px 14px;
+      text-align: center; cursor: pointer;
+      transition: transform .1s, box-shadow .1s;
+      position: relative;
+    }
+    .inv-item:hover {
+      transform: translate(-2px,-2px);
+      box-shadow: inset 1px 1px 0 var(--hi), 6px 6px 0 rgba(0,0,0,.5);
+      border-color: var(--gold);
+    }
+    .inv-item:active { transform: translate(1px,1px); }
+    .inv-icon { font-size: 40px; display: block; margin-bottom: 10px; }
+    .inv-name { font-family: var(--tf); font-size: 17px; color: var(--cream); }
+    .inv-qty {
+      position: absolute; top: 5px; right: 6px;
+      font-family: var(--pf); font-size: 6px; color: var(--gold);
+    }
+
+    /* ========================================================
+       MEMÓRIAS — GALERIA
+    ======================================================== */
+    #memorias { background: linear-gradient(180deg, #1a3010, #162810); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 22px; max-width: 1200px; margin: 0 auto;
+    }
+    .photo-card {
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), 6px 6px 0 rgba(0,0,0,.55);
+      overflow: hidden; cursor: pointer;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .photo-card:hover {
+      transform: translate(-3px,-3px);
+      box-shadow: inset 2px 2px 0 var(--hi), 9px 9px 0 rgba(0,0,0,.55);
+      border-color: var(--gold);
+    }
+    .photo-card img {
+      width: 100%; height: 230px; object-fit: cover; display: block;
+      border-bottom: 3px solid var(--border);
+    }
+    .photo-placeholder {
+      width: 100%; height: 230px;
+      background: var(--panel-mid);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 10px;
+      border-bottom: 3px solid var(--border);
+    }
+    .photo-placeholder-icon { font-size: 52px; opacity: .4; }
+    .photo-placeholder-text { font-family: var(--tf); font-size: 17px; color: var(--border); text-align: center; padding: 0 12px; }
+    .photo-info { padding: 14px 16px; }
+    .photo-date { font-family: var(--pf); font-size: 6px; color: var(--gold); margin-bottom: 8px; display: block; }
+    .photo-caption { font-family: var(--tf); font-size: 21px; color: var(--cream); line-height: 1.4; }
+    .photo-desc { font-family: var(--tf); font-size: 17px; color: var(--border); margin-top: 4px; }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; background: rgba(0,0,0,.93);
+      z-index: 3000; display: none;
+      align-items: center; justify-content: center; padding: 20px;
+    }
+    #lightbox.open { display: flex; }
+    .lb-inner {
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), 0 0 80px rgba(0,0,0,.8);
+      max-width: 90vw; max-height: 90vh; overflow-y: auto;
+      padding: 24px; position: relative; min-width: 320px;
+    }
+    .lb-img {
+      max-width: 100%; max-height: 60vh;
+      object-fit: contain; display: block; margin: 0 auto 16px;
+      border: 3px solid var(--border);
+    }
+    .lb-date { font-family: var(--pf); font-size: 7px; color: var(--gold); margin-bottom: 10px; }
+    .lb-caption { font-family: var(--tf); font-size: 26px; color: var(--cream); margin-bottom: 6px; }
+    .lb-desc { font-family: var(--tf); font-size: 20px; color: var(--hi); line-height: 1.5; }
+    .lb-close {
+      position: absolute; top: 10px; right: 12px;
+      font-family: var(--pf); font-size: 7px; color: var(--red);
+      background: none; border: 2px solid var(--red); padding: 5px 9px;
+      cursor: pointer; transition: background .1s;
+    }
+    .lb-close:hover { background: var(--red); color: #fff; }
+    .lb-nav {
+      display: flex; justify-content: space-between; margin-top: 14px;
+    }
+    .lb-nav-btn {
+      background: var(--panel-mid); border: 2px solid var(--border);
+      color: var(--cream); font-family: var(--tf); font-size: 22px;
+      padding: 6px 14px; cursor: pointer;
+    }
+    .lb-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Aviso galeria vazia */
+    .gallery-empty {
+      text-align: center; padding: 60px 20px;
+      font-family: var(--tf); font-size: 22px; color: var(--border);
+    }
+    .gallery-empty .ge-icon { font-size: 60px; display: block; margin-bottom: 16px; opacity: .5; }
+
+    /* ========================================================
+       CARTA
+    ======================================================== */
+    #carta { background: linear-gradient(180deg, #162810, #0e1e0a); }
+
+    .letter-wrap { max-width: 680px; margin: 0 auto; }
+    .letter-paper {
+      background: #f5e6c8;
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 #e8c890, inset -2px -2px 0 #c8a060, 8px 8px 0 rgba(0,0,0,.6);
+      padding: 44px 52px; position: relative;
+    }
+    .letter-paper::before {
+      content: '';
+      position: absolute; left: 52px; right: 0; top: 44px; bottom: 44px;
+      background: repeating-linear-gradient(transparent, transparent 31px, #d4c4a0 31px, #d4c4a0 32px);
+      pointer-events: none; opacity: .5;
+    }
+    .letter-dear { font-family: var(--pf); font-size: 8px; color: var(--red); margin-bottom: 22px; display: block; position: relative; }
+    .letter-body {
+      font-family: var(--tf); font-size: 24px; line-height: 1.8;
+      color: #2d1a0e; position: relative; min-height: 120px;
+    }
+    .cursor-blink { animation: blink .8s step-start infinite; }
+    .letter-sign { font-family: var(--pf); font-size: 7px; color: var(--red); text-align: right; margin-top: 28px; position: relative; }
+
+    /* ========================================================
+       PRESENTE
+    ======================================================== */
+    #presente { background: #0e1e0a; text-align: center; padding: 80px 20px; }
+    .gift-icon-wrap { font-size: 72px; display: block; margin-bottom: 20px; animation: giftBounce 2s ease-in-out infinite; cursor: pointer; }
+    @keyframes giftBounce { 0%,100%{transform:translateY(0) rotate(-4deg)} 50%{transform:translateY(-14px) rotate(4deg)} }
+    .gift-btn {
+      display: inline-block;
+      background: var(--panel);
+      border: 4px solid var(--gold);
+      box-shadow: inset 2px 2px 0 var(--hi), 6px 6px 0 rgba(0,0,0,.55);
+      padding: 18px 40px; cursor: pointer;
+      font-family: var(--pf); font-size: 9px; color: var(--gold);
+      transition: transform .1s, box-shadow .1s;
+    }
+    .gift-btn:hover { transform: translate(-3px,-3px); box-shadow: inset 2px 2px 0 var(--hi), 9px 9px 0 rgba(0,0,0,.55); }
+    .gift-btn:active { transform: translate(1px,1px); }
+
+    /* ========================================================
+       DIÁLOGO OVERLAY (popup universal)
+    ======================================================== */
+    #dlg-overlay {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+      width: min(620px, 92vw); z-index: 2000;
+      background: var(--panel);
+      border: 4px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--panel-mid), 6px 6px 0 rgba(0,0,0,.8);
+      padding: 20px 24px 28px;
+      display: none; animation: dlgUp .25s ease-out;
+    }
+    #dlg-overlay.open { display: block; }
+    @keyframes dlgUp {
+      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
+      to   { transform: translateX(-50%) translateY(0); opacity: 1; }
+    }
+    .dlg-speaker { font-family: var(--pf); font-size: 7px; color: var(--gold); margin-bottom: 10px; }
+    .dlg-text { font-family: var(--tf); font-size: 23px; color: var(--cream); line-height: 1.55; }
+    .dlg-close {
+      position: absolute; top: 10px; right: 12px;
+      font-family: var(--tf); font-size: 20px; color: var(--gold);
+      cursor: pointer; background: none; border: none;
+    }
+    .dlg-close:hover { color: var(--red); }
+
+    /* ========================================================
+       ACHIEVEMENT TOAST
+    ======================================================== */
+    .toast {
+      position: fixed; top: 72px; right: 16px; z-index: 2500;
+      background: var(--panel);
+      border: 3px solid var(--gold);
+      box-shadow: inset 1px 1px 0 var(--hi), 4px 4px 0 rgba(0,0,0,.7);
+      padding: 12px 16px; max-width: 280px;
+      animation: toastIn .4s ease-out, toastOut .5s 3.2s forwards;
+      pointer-events: none;
+    }
+    @keyframes toastIn  { from{transform:translateX(110%);opacity:0} to{transform:translateX(0);opacity:1} }
+    @keyframes toastOut { to  {transform:translateX(110%);opacity:0} }
+    .toast-title { font-family: var(--pf); font-size: 6px; color: var(--gold); margin-bottom: 5px; }
+    .toast-body  { font-family: var(--tf); font-size: 19px; color: var(--cream); }
+
+    /* ========================================================
+       SELETOR DE ESTAÇÃO
+    ======================================================== */
+    #season-bar {
+      position: fixed; bottom: 16px; right: 16px; z-index: 600;
+      display: flex; gap: 6px;
+    }
+    .s-btn {
+      background: var(--panel); border: 2px solid var(--border);
+      color: var(--cream); font-family: var(--tf); font-size: 19px;
+      padding: 5px 10px; cursor: pointer; transition: .1s;
+    }
+    .s-btn:hover, .s-btn.on { border-color: var(--gold); color: var(--gold); background: var(--panel-mid); }
+
+    /* Overrides de estação */
+    body.verao  { --sky:#87ceeb; --grass:#4a8c3f; --grass-dk:#2a5c2a; }
+    body.outono { --sky:#d4926a; --grass:#8b6914; --grass-dk:#5c4a10; }
+    body.inverno{ --sky:#c8d8e8; --grass:#7a9ab0; --grass-dk:#4a6a80; }
+
+    /* ========================================================
+       DIÁRIO DA FAZENDA
+    ======================================================== */
+    #diario { background: linear-gradient(180deg, #162810, #0e200c); }
+
+    .diary-timeline {
+      max-width: 760px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
+      position: relative;
+    }
+    /* Linha central */
+    .diary-timeline::before {
+      content: '';
+      position: absolute; left: 28px; top: 0; bottom: 0;
+      width: 4px; background: var(--border);
+      box-shadow: 2px 0 0 var(--panel-mid);
+    }
+
+    .diary-entry {
+      display: flex; gap: 24px; align-items: flex-start;
+      padding: 0 0 32px 0; position: relative;
+    }
+    /* Bolinha na timeline */
+    .diary-dot {
+      flex-shrink: 0; width: 60px; text-align: center;
+      position: relative; z-index: 2;
+    }
+    .diary-dot-icon {
+      display: block; font-size: 28px;
+      background: var(--panel);
+      border: 3px solid var(--border);
+      box-shadow: inset 1px 1px 0 var(--hi), 3px 3px 0 rgba(0,0,0,.5);
+      width: 56px; height: 56px; line-height: 50px;
+      text-align: center; margin: 0 auto;
+    }
+
+    /* Card da entrada */
+    .diary-card {
+      flex: 1;
+      background: var(--panel);
+      border: 3px solid var(--border);
+      box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--panel-mid), 5px 5px 0 rgba(0,0,0,.55);
+      overflow: hidden;
+      transition: transform .12s, box-shadow .12s;
+    }
+    .diary-card:hover {
+      transform: translate(-2px,-2px);
+      box-shadow: inset 2px 2px 0 var(--hi), inset -2px -2px 0 var(--panel-mid), 7px 7px 0 rgba(0,0,0,.55);
+      border-color: var(--gold);
+    }
+
+    .diary-header {
+      background: var(--panel-mid);
+      border-bottom: 2px solid var(--border);
+      padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .diary-date {
+      font-family: var(--pf); font-size: 7px; color: var(--gold);
+    }
+    .diary-tag {
+      font-family: var(--tf); font-size: 16px; color: var(--hi);
+      border: 1px solid var(--border); padding: 1px 8px;
+    }
+
+    .diary-body { padding: 16px 18px; }
+    .diary-title {
+      font-family: var(--pf); font-size: 8px; color: var(--cream);
+      margin-bottom: 12px; line-height: 1.6;
+    }
+    .diary-text {
+      font-family: var(--tf); font-size: 21px; color: var(--cream);
+      line-height: 1.6; white-space: pre-line;
+    }
+    .diary-photo {
+      width: 100%; max-height: 280px; object-fit: cover;
+      border-top: 2px solid var(--border); display: block;
+      cursor: pointer;
+    }
+    .diary-photo:hover { opacity: .9; }
+
+    /* Entrada "em branco" para novos registros */
+    .diary-new {
+      border-style: dashed; opacity: .5;
+      pointer-events: none;
+    }
+    .diary-new .diary-title { color: var(--border); }
+    .diary-new .diary-text  { color: var(--border); font-style: italic; }
+
+    /* Aviso de diário vazio */
+    .diary-empty {
+      text-align: center; padding: 50px 20px;
+      font-family: var(--tf); font-size: 22px; color: var(--border);
+    }
+    .diary-empty .de-icon { font-size: 60px; display: block; margin-bottom: 14px; opacity: .45; }
+
+    /* ========================================================
+       RODAPÉ
+    ======================================================== */
+    footer {
+      background: var(--panel);
+      border-top: 4px solid var(--border);
+      padding: 20px; text-align: center;
+    }
+    .footer-text { font-family: var(--tf); font-size: 21px; color: var(--pink); }
+
+    /* ========================================================
+       RESPONSIVE
+    ======================================================== */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hm-label { display: none; }
+      .inv-grid { grid-template-columns: repeat(3, 1fr); }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .letter-paper { padding: 28px 22px; }
+      .letter-paper::before { left: 22px; }
+    }
+  </style>
+</head>
+<body class="primavera">
+
+<!-- ============================================================
+     NAVEGAÇÃO
+============================================================ -->
+<nav>
+  <span class="nav-logo">✦ Stardew Valley ✦</span>
+  <ul class="nav-links">
+    <li><a href="#hero">Início</a></li>
+    <li><a href="#historia">Nossa História</a></li>
+    <li><a href="#amor">Por que te Amo</a></li>
+    <li><a href="#memorias">Memórias</a></li>
+    <li><a href="#diario">Diário</a></li>
+    <li><a href="#carta">Carta</a></li>
+  </ul>
+  <div class="heart-meter" title="Colete corações clicando!">
+    <span class="hm-label">♥</span>
+    <!-- 14 corações como no Stardew Valley -->
+    <span class="hm-icon" id="h0">❤️</span>
+    <span class="hm-icon" id="h1">❤️</span>
+    <span class="hm-icon" id="h2">❤️</span>
+    <span class="hm-icon" id="h3">❤️</span>
+    <span class="hm-icon" id="h4">❤️</span>
+    <span class="hm-icon" id="h5">❤️</span>
+    <span class="hm-icon" id="h6">❤️</span>
+    <span class="hm-icon" id="h7">❤️</span>
+    <span class="hm-icon" id="h8">❤️</span>
+    <span class="hm-icon" id="h9">❤️</span>
+    <span class="hm-icon" id="h10">❤️</span>
+    <span class="hm-icon" id="h11">❤️</span>
+    <span class="hm-icon" id="h12">❤️</span>
+    <span class="hm-icon" id="h13">❤️</span>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero">
+  <!-- Estrelas (visíveis no inverno) -->
+  <div class="star" style="top:15%;left:10%;animation-delay:.3s"></div>
+  <div class="star" style="top:20%;left:25%;animation-delay:.8s"></div>
+  <div class="star" style="top:10%;left:55%;animation-delay:.1s"></div>
+  <div class="star" style="top:18%;left:80%;animation-delay:.5s"></div>
+  <div class="star" style="top:8%; left:42%;animation-delay:1.1s"></div>
+
+  <!-- Nuvens -->
+  <div class="cloud" style="top:12%;width:80px;height:24px;border-radius:0;animation-duration:28s;animation-delay:-5s;box-shadow:16px -16px 0 #fff,32px -8px 0 #fff"></div>
+  <div class="cloud" style="top:22%;width:60px;height:20px;border-radius:0;animation-duration:38s;animation-delay:-18s;box-shadow:12px -12px 0 #fff,24px -4px 0 #fff"></div>
+  <div class="cloud" style="top:8%; width:100px;height:28px;border-radius:0;animation-duration:45s;animation-delay:-32s;box-shadow:20px -20px 0 #fff,40px -8px 0 #fff,60px 0 0 #fff"></div>
+
+  <!-- Flores clicáveis -->
+  <div class="hero-flower" style="left:8%" onclick="dlgShow('flor','Florzinha','Que você cuida de mim como cuida de cada florzinha do jardim. 🌸')">🌸</div>
+  <div class="hero-flower" style="left:17%" onclick="dlgShow('flor','Tulipa','Você é a mais bonita de todas as flores dessa fazenda. 🌷')">🌷</div>
+  <div class="hero-flower" style="left:28%" onclick="dlgShow('flor','Florescência','Cada dia ao seu lado é como uma nova flor desabrochando. 🌼')">🌼</div>
+  <div class="hero-flower" style="right:10%" onclick="dlgShow('flor','Hibisco','Você colore minha vida como essa florzinha vermelha. 🌺')">🌺</div>
+  <div class="hero-flower" style="right:22%" onclick="dlgShow('flor','Margarida','Com você, até os dias cinzas ficam coloridos. 🌻')">🌻</div>
+  <div class="hero-flower" style="right:35%" onclick="dlgShow('flor','Primavera','Você chegou e fez a primavera viver dentro de mim. 🌸')">🌸</div>
+
+  <!-- Personagem andando -->
+  <div class="walker" title="Olha nós dois! 🥰">👩‍🌾</div>
+
+  <!-- Grama decorativa -->
+  <div class="grass-strip" id="grass-strip"></div>
+
+  <!-- Conteúdo central -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">✦ Uma Surpresa Especial Para Você ✦</p>
+    <h1 class="hero-title">Feliz Dia<br>dos Namorados<br>💖</h1>
+    <div class="hero-hearts">❤️ &nbsp;💕&nbsp; ❤️</div>
+    <p style="font-family:var(--tf);font-size:19px;margin-top:18px;color:var(--cream);text-shadow:1px 1px 0 #000">
+      Clique em qualquer lugar para coletar corações!
+    </p>
+  </div>
+
+  <div class="scroll-hint">▼ Role para baixo ▼</div>
+</section>
+
+<!-- ============================================================
+     HISTÓRIA
+============================================================ -->
+<section id="historia">
+  <h2 class="section-title">
+    📖 Nossa História
+    <span>cada capítulo mais bonito que o anterior</span>
+  </h2>
+
+  <div class="story-container">
+    <div class="story-box pbox">
+      <span class="story-speaker" id="story-speaker">Carregando...</span>
+      <p class="story-text" id="story-text"></p>
+      <span class="story-arrow">▼</span>
+    </div>
+
+    <div class="story-controls">
+      <button class="story-btn" onclick="storyPrev()">◀ Anterior</button>
+      <button class="story-btn" onclick="storyNext()">Próximo ▶</button>
+    </div>
+    <div class="story-progress" id="story-progress"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     POR QUE TE AMO — INVENTÁRIO
+============================================================ -->
+<section id="amor">
+  <h2 class="section-title">
+    🎒 Por que te Amo
+    <span>clique em cada item para saber mais</span>
+  </h2>
+
+  <div class="inv-grid" id="inv-grid">
+    <!-- Gerado pelo JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     MEMÓRIAS — GALERIA
+============================================================ -->
+<section id="memorias">
+  <h2 class="section-title">
+    📷 Nossas Memórias
+    <span>cada foto vale mais que mil palavras</span>
+  </h2>
+
+  <div class="gallery-grid" id="gallery-grid">
+    <!-- Gerado pelo JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     DIÁRIO DA FAZENDA
+============================================================ -->
+<section id="diario">
+  <h2 class="section-title">
+    📔 Diário da Fazenda
+    <span>nossa história sendo escrita a cada dia</span>
+  </h2>
+
+  <div class="diary-timeline" id="diary-timeline">
+    <!-- Gerado pelo JS -->
+  </div>
+</section>
+
+<!-- ============================================================
+     CARTA DE AMOR
+============================================================ -->
+<section id="carta">
+  <h2 class="section-title">
+    💌 Carta de Amor
+    <span>escrevi tudo que meu coração sente</span>
+  </h2>
+
+  <div class="letter-wrap">
+    <div class="letter-paper">
+      <span class="letter-dear" id="letter-dear">Para: [Nome dela] ❤️</span>
+      <p class="letter-body" id="letter-body"></p>
+      <p class="letter-sign" id="letter-sign"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRESENTE
+============================================================ -->
+<section id="presente">
+  <h2 class="section-title" style="margin-bottom:28px">
+    🎁 Um Presente Especial
+  </h2>
+  <span class="gift-icon-wrap" onclick="openGift()">🎁</span>
+  <p style="font-family:var(--tf);font-size:21px;margin-bottom:24px;color:var(--hi)">Clique para abrir seu presente!</p>
+  <button class="gift-btn" onclick="openGift()">
+    ✦ ABRIR PRESENTE ✦
+  </button>
+</section>
+
+<!-- ============================================================
+     RODAPÉ
+============================================================ -->
+<footer>
+  <p class="footer-text">
+    Feito com ❤️ em Stardew Valley &nbsp;•&nbsp; 14 de Junho de 2025
+  </p>
+</footer>
+
+<!-- ============================================================
+     LIGHTBOX
+============================================================ -->
+<div id="lightbox">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="lbClose()">✕ Fechar</button>
+    <img class="lb-img" id="lb-img" src="" alt="">
+    <div id="lb-placeholder" style="display:none;text-align:center;padding:40px 0;font-size:60px;opacity:.3">📷</div>
+    <p class="lb-date" id="lb-date"></p>
+    <p class="lb-caption" id="lb-caption"></p>
+    <p class="lb-desc" id="lb-desc"></p>
+    <div class="lb-nav">
+      <button class="lb-nav-btn" onclick="lbNav(-1)">◀ Anterior</button>
+      <button class="lb-nav-btn" onclick="lbNav(1)">Próxima ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     DIÁLOGO UNIVERSAL
+============================================================ -->
+<div id="dlg-overlay">
+  <p class="dlg-speaker" id="dlg-speaker"></p>
+  <p class="dlg-text" id="dlg-text"></p>
+  <button class="dlg-close" onclick="dlgClose()">✕</button>
+</div>
+
+<!-- ============================================================
+     SELETOR DE ESTAÇÃO
+============================================================ -->
+<div id="season-bar">
+  <button class="s-btn on"  data-s="primavera" onclick="setSeason(this)">🌸</button>
+  <button class="s-btn"     data-s="verao"     onclick="setSeason(this)">☀️</button>
+  <button class="s-btn"     data-s="outono"    onclick="setSeason(this)">🍂</button>
+  <button class="s-btn"     data-s="inverno"   onclick="setSeason(this)">❄️</button>
+</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ============================================================
+   ██████  CONFIG — EDITE AQUI!
+   ============================================================
+   Todas as personalizações ficam nesta seção.
+   Basta substituir os textos entre aspas.
+============================================================ */
+
+// Nome da sua namorada
+const NOME = "[Nome dela]";
+
+// Seu nome
+const MEU_NOME = "[Seu Nome]";
+
+/* --- HISTÓRIA ---
+   Cada objeto é uma "caixa de diálogo" como no jogo.
+   speaker: quem está falando | text: o que está escrito */
+const HISTORIA = [
+  {
+    speaker: "Narrador",
+    text: "Em algum lugar especial, dois corações encontraram o caminho um para o outro... 💕"
+  },
+  {
+    speaker: "Narrador",
+    text: "Edite este texto para contar como vocês se conheceram! Substitua estes diálogos pela história de vocês. 🌸"
+  },
+  {
+    speaker: NOME,
+    text: "Você pode colocar falas da sua namorada aqui! Lembre de algum momento especial que ela disse algo bonito. 💬"
+  },
+  {
+    speaker: MEU_NOME,
+    text: "E as suas falas aqui! Conte os momentos que fizeram vocês se apaixonarem. ❤️"
+  },
+  {
+    speaker: "Narrador",
+    text: "Cada dia juntos é uma nova aventura, como uma nova estação em Stardew Valley. 🌻"
+  },
+  {
+    speaker: "Narrador",
+    text: "E essa aventura ainda está só começando... 💖"
+  }
+];
+
+/* --- POR QUE TE AMO ---
+   icon: emoji do item | name: nome curto | desc: texto ao clicar */
+const RAZOES = [
+  {
+    icon: "🍓", name: "Seu Sorriso",
+    desc: "Quando você sorri, o mundo inteiro para. É o meu lugar favorito. 😊"
+  },
+  {
+    icon: "🌟", name: "Sua Força",
+    desc: "Você enfrenta cada desafio com uma coragem que me inspira todos os dias. 💪"
+  },
+  {
+    icon: "💝", name: "Seu Amor",
+    desc: "A forma como você ama me faz sentir em casa onde quer que a gente esteja. 🏡"
+  },
+  {
+    icon: "🌸", name: "Sua Leveza",
+    desc: "Você ilumina qualquer ambiente só de entrar. É uma luz que não se apaga. ✨"
+  },
+  {
+    icon: "🎮", name: "Seus Gostos",
+    desc: "Descobrir o que você ama é uma das minhas partes favoritas de te conhecer. 🕹️"
+  },
+  {
+    icon: "🌙", name: "Sua Calma",
+    desc: "Nos momentos difíceis, seu abraço é o único lugar onde tudo faz sentido. 🤗"
+  },
+  {
+    icon: "📚", name: "Curiosidade",
+    desc: "Você está sempre aprendendo, crescendo, me surpreendendo. Nunca enjoo de te conhecer. 📖"
+  },
+  {
+    icon: "✨", name: "Sua Magia",
+    desc: "Você transforma o ordinário em extraordinário. Com você, tudo é mais especial. 🪄"
+  },
+  {
+    icon: "🍰", name: "Seus Gostos",
+    desc: "Até as coisas mais simples — um café, um filme, um passeio — ficam perfeitas ao seu lado. ☕"
+  },
+  {
+    icon: "🎵", name: "Sua Voz",
+    desc: "O som da sua voz é minha música favorita. Poderia ouvir o dia todo. 🎶"
+  },
+  {
+    icon: "💫", name: "Seus Sonhos",
+    desc: "Eu quero estar presente em cada sonho que você realizar. Torcer, comemorar, celebrar. 🌈"
+  },
+  {
+    icon: "🌺", name: "Só Você",
+    desc: "Não existe ninguém como você no mundo inteiro. E que sorte a minha te ter. 💖"
+  }
+];
+
+/* --- FOTOS ---
+   COMO ADICIONAR FOTOS:
+   1. Coloque os arquivos de imagem na pasta "fotos/"
+   2. Descomente (remova as //) e preencha os campos abaixo
+   3. Adicione quantas quiser!
+
+   src: caminho da foto (ex: "fotos/foto1.jpg")
+   date: data do evento
+   caption: título curto
+   desc: descrição do que aconteceu nesse dia
+*/
+const FOTOS = [
+  // {
+  //   src: "fotos/foto1.jpg",
+  //   date: "14 de Fevereiro de 2025",
+  //   caption: "Nosso primeiro encontro",
+  //   desc: "O dia em que tudo começou..."
+  // },
+  // {
+  //   src: "fotos/foto2.jpg",
+  //   date: "20 de Março de 2025",
+  //   caption: "Nosso passeio no parque",
+  //   desc: "Uma tarde perfeita juntos."
+  // },
+  // {
+  //   src: "fotos/foto3.jpg",
+  //   date: "14 de Junho de 2025",
+  //   caption: "Dia dos Namorados ❤️",
+  //   desc: "Mais um dia dos namorados ao seu lado."
+  // },
+];
+
+/* --- CARTA ---
+   Escreva a carta de amor aqui. Use \n para pular linha. */
+const CARTA_TEXTO = `Edite este espaço para escrever sua carta de amor!
+
+Você pode contar como se sentiu quando a conheceu,
+o que mais ama nela, seus planos para o futuro...
+
+Cada palavra que você escrever aqui vai ficar
+gravada para sempre nesse site, como uma
+lembrança eterna do amor de vocês.
+
+Com todo meu amor,`;
+
+/* --- DIÁRIO ---
+   Adicione entradas aqui para registrar os momentos de vocês!
+   Cada objeto é uma página do diário.
+
+   emoji:  ícone que aparece na linha do tempo (qualquer emoji)
+   date:   data do evento
+   title:  título curto da entrada
+   tag:    categoria (ex: "Encontro", "Viagem", "Aniversário"...)
+   text:   texto da entrada — pode ter quebras de linha (\n)
+   foto:   caminho da foto (ex: "fotos/diario1.jpg") ou null
+*/
+const DIARIO = [
+  // Exemplo de entrada — descomente e edite para adicionar!
+  // {
+  //   emoji: "💖",
+  //   date: "14 de Junho de 2025",
+  //   title: "Dia dos Namorados",
+  //   tag: "Data especial",
+  //   text: "Hoje criei esse site pra te mostrar o quanto te amo.\nEspero que você tenha sorrido muito. 😊",
+  //   foto: null
+  // },
+  // {
+  //   emoji: "🌸",
+  //   date: "__ de ______ de 20__",
+  //   title: "Título do momento",
+  //   tag: "Passeio",
+  //   text: "Escreva o que aconteceu nesse dia...",
+  //   foto: "fotos/diario1.jpg"
+  // },
+];
+
+/* --- PRESENTE ---
+   Mensagem que aparece ao abrir o presente */
+const PRESENTE_MSG = `Meu presente pra você é simples:
+prometer estar aqui amanhã,
+e no dia depois, e no seguinte.
+
+Feliz Dia dos Namorados! 💖`;
+
+/* ============================================================
+   FIM DA CONFIG — não precisa editar abaixo
+============================================================ */
+
+// ---- ESTAÇÕES ----
+const SEASONS = ['primavera','verao','outono','inverno'];
+let currentSeason = 'primavera';
+function setSeason(btn) {
+  document.body.classList.remove(...SEASONS);
+  currentSeason = btn.dataset.s;
+  document.body.classList.add(currentSeason);
+  document.querySelectorAll('.s-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  buildGrass();
+  updateHeroBackground();
+}
+
+function updateHeroBackground() {
+  // Atualiza gradiente do hero com as CSS vars atualizadas
+  // As CSS vars já propagam automaticamente pelo body.class
+}
+
+// ---- GRAMA PIXEL ----
+function buildGrass() {
+  const strip = document.getElementById('grass-strip');
+  if (!strip) return;
+  strip.innerHTML = '';
+  const w = window.innerWidth;
+  const count = Math.ceil(w / 10) + 5;
+  for (let i = 0; i < count; i++) {
+    const blade = document.createElement('div');
+    blade.className = 'grass-blade';
+    blade.style.left = (i * 10 - 5 + Math.random() * 6) + 'px';
+    const h = 20 + Math.floor(Math.random() * 28);
+    blade.style.height = h + 'px';
+    blade.style.animationDelay = (Math.random() * 2) + 's';
+    blade.style.animationDuration = (1.5 + Math.random()) + 's';
+    blade.style.opacity = 0.7 + Math.random() * 0.3;
+    strip.appendChild(blade);
+  }
+}
+
+// ---- CORAÇÃO FLUTUANTE (ambient) ----
+const HEART_EMOJIS = ['❤️','💕','💖','💗','💓','💝','🌸'];
+function spawnAmbientHeart() {
+  const el = document.createElement('div');
+  el.className = 'fheart';
+  el.textContent = HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)];
+  const x = 5 + Math.random() * 90;
+  el.style.left = x + 'vw';
+  el.style.bottom = '0';
+  const dur = 3 + Math.random() * 3;
+  el.style.animationDuration = dur + 's';
+  el.style.fontSize = (16 + Math.random() * 14) + 'px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), dur * 1000);
+}
+setInterval(spawnAmbientHeart, 1800);
+
+// ---- CLICK → CORAÇÃO ----
+let heartCount = 0;
+const MAX_HEARTS = 14;
+const ACHIEVEMENTS = {
+  1:  { title: '✦ Primeiro Coração!', body: 'Que começem os corações! 💖' },
+  5:  { title: '✦ 5 Corações!', body: 'Você está aquecendo meu coração! 💕' },
+  10: { title: '✦ 10 Corações!', body: 'Incrível! Você está apaixonada também! 💗' },
+  14: { title: '✦ 14 Corações! MÁXIMO!', body: 'Nível máximo de amor desbloqueado! ❤️ Te amo demais!' }
+};
+
+document.addEventListener('click', (e) => {
+  if (e.target.closest('button, a, .inv-item, .photo-card, #season-bar, nav, #dlg-overlay, #lightbox')) return;
+  spawnClickHeart(e.clientX, e.clientY);
+  if (heartCount < MAX_HEARTS) {
+    heartCount++;
+    updateHeartMeter();
+    if (ACHIEVEMENTS[heartCount]) showToast(ACHIEVEMENTS[heartCount].title, ACHIEVEMENTS[heartCount].body);
+  }
+});
+
+function spawnClickHeart(x, y) {
+  const el = document.createElement('div');
+  el.className = 'cheart';
+  el.textContent = HEART_EMOJIS[Math.floor(Math.random() * HEART_EMOJIS.length)];
+  el.style.left = (x - 12) + 'px';
+  el.style.top  = (y - 12) + 'px';
+  el.style.fontSize = '26px';
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 900);
+}
+
+function updateHeartMeter() {
+  for (let i = 0; i < MAX_HEARTS; i++) {
+    const el = document.getElementById('h' + i);
+    if (el) el.classList.toggle('lit', i < heartCount);
+  }
+}
+
+// ---- TOAST ----
+function showToast(title, body) {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<p class="toast-title">${title}</p><p class="toast-body">${body}</p>`;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3800);
+}
+
+// ---- DIÁLOGO OVERLAY ----
+function dlgShow(id, speaker, text) {
+  document.getElementById('dlg-speaker').textContent = speaker;
+  document.getElementById('dlg-text').textContent = text;
+  document.getElementById('dlg-overlay').classList.add('open');
+}
+function dlgClose() {
+  document.getElementById('dlg-overlay').classList.remove('open');
+}
+
+// ---- HISTÓRIA (diálogos) ----
+let storyIdx = 0;
+let storyTyping = null;
+
+function storyRender(idx) {
+  const d = HISTORIA[idx];
+  if (!d) return;
+  document.getElementById('story-speaker').textContent = d.speaker;
+  const textEl = document.getElementById('story-text');
+  textEl.textContent = '';
+  if (storyTyping) clearInterval(storyTyping);
+  let i = 0;
+  storyTyping = setInterval(() => {
+    textEl.textContent += d.text[i] || '';
+    i++;
+    if (i >= d.text.length) clearInterval(storyTyping);
+  }, 28);
+  // dots
+  const prog = document.getElementById('story-progress');
+  prog.innerHTML = HISTORIA.map((_, j) =>
+    `<div class="story-dot${j === idx ? ' active' : ''}"></div>`
+  ).join('');
+}
+
+function storyNext() {
+  storyIdx = (storyIdx + 1) % HISTORIA.length;
+  storyRender(storyIdx);
+}
+function storyPrev() {
+  storyIdx = (storyIdx - 1 + HISTORIA.length) % HISTORIA.length;
+  storyRender(storyIdx);
+}
+
+// ---- INVENTÁRIO ----
+function buildInventory() {
+  const grid = document.getElementById('inv-grid');
+  RAZOES.forEach((r, i) => {
+    const item = document.createElement('div');
+    item.className = 'inv-item';
+    item.innerHTML = `
+      <span class="inv-icon">${r.icon}</span>
+      <span class="inv-name">${r.name}</span>
+      <span class="inv-qty">x1</span>
+    `;
+    item.addEventListener('click', () => dlgShow('inv', r.name + ' ' + r.icon, r.desc));
+    grid.appendChild(item);
+  });
+}
+
+// ---- GALERIA ----
+let currentPhoto = 0;
+
+function buildGallery() {
+  const grid = document.getElementById('gallery-grid');
+  if (FOTOS.length === 0) {
+    grid.innerHTML = `
+      <div class="gallery-empty" style="grid-column:1/-1">
+        <span class="ge-icon">📷</span>
+        <p>As fotos serão adicionadas em breve...</p>
+        <p style="font-size:18px;margin-top:10px;color:var(--border)">
+          (Adicione seus arquivos na pasta <strong>fotos/</strong> e edite o array FOTOS no código)
+        </p>
+      </div>`;
+    return;
+  }
+  FOTOS.forEach((f, i) => {
+    const card = document.createElement('div');
+    card.className = 'photo-card';
+    const imgHtml = f.src
+      ? `<img src="${f.src}" alt="${f.caption}" loading="lazy">`
+      : `<div class="photo-placeholder">
+           <span class="photo-placeholder-icon">📷</span>
+           <p class="photo-placeholder-text">Adicione a foto aqui</p>
+         </div>`;
+    card.innerHTML = `
+      ${imgHtml}
+      <div class="photo-info">
+        <span class="photo-date">${f.date}</span>
+        <p class="photo-caption">${f.caption}</p>
+        <p class="photo-desc">${f.desc || ''}</p>
+      </div>`;
+    card.addEventListener('click', () => lbOpen(i));
+    grid.appendChild(card);
+  });
+}
+
+function lbOpen(i) {
+  currentPhoto = i;
+  lbRender();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir) {
+  currentPhoto = (currentPhoto + dir + FOTOS.length) % FOTOS.length;
+  lbRender();
+}
+function lbRender() {
+  const f = FOTOS[currentPhoto];
+  if (!f) return;
+  const img = document.getElementById('lb-img');
+  const ph  = document.getElementById('lb-placeholder');
+  if (f.src) {
+    img.src = f.src; img.style.display = 'block'; ph.style.display = 'none';
+  } else {
+    img.style.display = 'none'; ph.style.display = 'block';
+  }
+  document.getElementById('lb-date').textContent    = f.date;
+  document.getElementById('lb-caption').textContent = f.caption;
+  document.getElementById('lb-desc').textContent    = f.desc || '';
+}
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) lbClose();
+});
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft')  lbNav(-1);
+});
+
+// ---- CARTA ----
+function buildLetter() {
+  document.getElementById('letter-dear').textContent = `Para: ${NOME} ❤️`;
+  document.getElementById('letter-sign').textContent = `Com todo meu amor, ${MEU_NOME}`;
+}
+
+let letterStarted = false;
+function typeLetter() {
+  if (letterStarted) return;
+  letterStarted = true;
+  const el = document.getElementById('letter-body');
+  el.textContent = '';
+  let i = 0;
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor-blink';
+  cursor.textContent = '|';
+  el.appendChild(cursor);
+  const iv = setInterval(() => {
+    el.insertBefore(document.createTextNode(CARTA_TEXTO[i] || ''), cursor);
+    i++;
+    if (i >= CARTA_TEXTO.length) {
+      clearInterval(iv);
+      cursor.remove();
+    }
+  }, 22);
+}
+
+// Intersection observer para iniciar typewriter quando visível
+const letterObs = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) typeLetter();
+}, { threshold: 0.3 });
+letterObs.observe(document.getElementById('carta'));
+
+// ---- PRESENTE ----
+let giftOpened = false;
+function openGift() {
+  if (giftOpened) return;
+  giftOpened = true;
+  // Esplode corações
+  for (let i = 0; i < 14; i++) {
+    setTimeout(() => {
+      const x = window.innerWidth * (.2 + Math.random() * .6);
+      const y = window.innerHeight * (.3 + Math.random() * .4);
+      spawnClickHeart(x, y);
+    }, i * 80);
+  }
+  dlgShow('presente', '🎁 Presente Especial', PRESENTE_MSG);
+  showToast('✦ Presente Aberto!', 'Espero que você goste! 💖');
+}
+
+// ---- DIÁRIO ----
+function buildDiario() {
+  const tl = document.getElementById('diary-timeline');
+  if (!tl) return;
+
+  if (DIARIO.length === 0) {
+    tl.innerHTML = `
+      <div class="diary-empty" style="width:100%">
+        <span class="de-icon">📔</span>
+        <p>O diário ainda está em branco...</p>
+        <p style="font-size:18px;margin-top:10px;color:var(--border)">
+          Adicione entradas no array <strong>DIARIO</strong> no código para começar!
+        </p>
+      </div>`;
+    return;
+  }
+
+  DIARIO.forEach((entry, i) => {
+    const card = document.createElement('div');
+    card.className = 'diary-entry';
+
+    const fotoHtml = entry.foto
+      ? `<img class="diary-photo" src="${entry.foto}" alt="${entry.title}"
+             onclick="lbOpenSingle('${entry.foto}','${entry.date}','${entry.title}','${(entry.text||'').replace(/'/g,"\\'")}')
+">`
+      : '';
+
+    card.innerHTML = `
+      <div class="diary-dot">
+        <span class="diary-dot-icon">${entry.emoji || '📖'}</span>
+      </div>
+      <div class="diary-card">
+        <div class="diary-header">
+          <span class="diary-date">${entry.date}</span>
+          ${entry.tag ? `<span class="diary-tag">${entry.tag}</span>` : ''}
+        </div>
+        <div class="diary-body">
+          <p class="diary-title">${entry.title}</p>
+          <p class="diary-text">${entry.text || ''}</p>
+        </div>
+        ${fotoHtml}
+      </div>`;
+
+    tl.appendChild(card);
+  });
+}
+
+// Abre lightbox com uma única imagem (para o diário)
+function lbOpenSingle(src, date, caption, desc) {
+  const idx = FOTOS.findIndex(f => f.src === src);
+  if (idx >= 0) { lbOpen(idx); return; }
+  // Foto só do diário — mostra no lightbox diretamente
+  const lb = document.getElementById('lightbox');
+  const img = document.getElementById('lb-img');
+  const ph  = document.getElementById('lb-placeholder');
+  img.src = src; img.style.display = 'block'; ph.style.display = 'none';
+  document.getElementById('lb-date').textContent    = date || '';
+  document.getElementById('lb-caption').textContent = caption || '';
+  document.getElementById('lb-desc').textContent    = desc || '';
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// ---- INIT ----
+document.addEventListener('DOMContentLoaded', () => {
+  buildGrass();
+  storyRender(0);
+  buildInventory();
+  buildGallery();
+  buildDiario();
+  buildLetter();
+  document.getElementById('letter-dear').textContent = `Para: ${NOME} ❤️`;
+  document.getElementById('letter-sign').textContent  = `Com todo meu amor, ${MEU_NOME}`;
+});
+
+window.addEventListener('resize', buildGrass);
+</script>
+</body>
+</html>
