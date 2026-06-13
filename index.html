@@ -1027,6 +1027,7 @@
 <!-- ============================================================
      JAVASCRIPT
 ============================================================ -->
+```html
 <script>
 /* ============================================================
    ██████  CONFIG — EDITE AQUI!
@@ -1036,181 +1037,212 @@
 ============================================================ */
 
 // Nome da sua namorada
-const NOME = "[Nome dela]";
+const NOME = "Natasha";
+
+// Apelido carinhoso
+const APELIDO = "Nathy";
 
 // Seu nome
-const MEU_NOME = "[Seu Nome]";
+const MEU_NOME = "Dado";
 
-/* --- HISTÓRIA ---
-   Cada objeto é uma "caixa de diálogo" como no jogo.
-   speaker: quem está falando | text: o que está escrito */
+/* --- HISTÓRIA --- */
 const HISTORIA = [
   {
     speaker: "Narrador",
-    text: "Em algum lugar especial, dois corações encontraram o caminho um para o outro... 💕"
-  },
-  {
-    speaker: "Narrador",
-    text: "Edite este texto para contar como vocês se conheceram! Substitua estes diálogos pela história de vocês. 🌸"
-  },
-  {
-    speaker: NOME,
-    text: "Você pode colocar falas da sua namorada aqui! Lembre de algum momento especial que ela disse algo bonito. 💬"
+    text: "Em uma fazenda cheia de flores, estações e pequenos milagres, apareceu alguém capaz de deixar tudo mais bonito: a Natasha. 💕"
   },
   {
     speaker: MEU_NOME,
-    text: "E as suas falas aqui! Conte os momentos que fizeram vocês se apaixonarem. ❤️"
+    text: "Mas para mim ela não é só Natasha... ela é minha Nathy, meu lugar de paz, meu carinho favorito e a pessoa que faz meu coração sorrir. ❤️"
   },
   {
     speaker: "Narrador",
-    text: "Cada dia juntos é uma nova aventura, como uma nova estação em Stardew Valley. 🌻"
+    text: "Com seu cabelo vermelho, ela parece uma personagem rara, daquelas que a gente encontra uma vez na vida e nunca mais quer perder. 🌹"
+  },
+  {
+    speaker: MEU_NOME,
+    text: "Eu amo o sorriso perfeitamente reto dela. Um sorriso que ilumina o dia, acalma a alma e faz tudo parecer mais leve. 😊"
   },
   {
     speaker: "Narrador",
-    text: "E essa aventura ainda está só começando... 💖"
+    text: "Mas o que torna a Nathy ainda mais especial é o coração dela: paciente, cuidadoso e cheio de amor nos pequenos gestos."
+  },
+  {
+    speaker: MEU_NOME,
+    text: "Eu admiro demais a paciência e o cuidado que ela tem com minha avó e com as crianças. Isso me mostra todos os dias o tamanho do coração dela. 💖"
+  },
+  {
+    speaker: "Narrador",
+    text: "E assim, entre carinho, cuidado, risadas e memórias, essa história continua sendo escrita... um dia bonito de cada vez. 🌸"
+  },
+  {
+    speaker: MEU_NOME,
+    text: "Feliz Dia dos Namorados, minha Nathy. Eu te amo mais do que qualquer frase desse site conseguiria explicar. ❤️"
   }
 ];
 
-/* --- POR QUE TE AMO ---
-   icon: emoji do item | name: nome curto | desc: texto ao clicar */
+/* --- POR QUE TE AMO --- */
 const RAZOES = [
   {
-    icon: "🍓", name: "Seu Sorriso",
-    desc: "Quando você sorri, o mundo inteiro para. É o meu lugar favorito. 😊"
+    icon: "🌹", name: "Cabelo Vermelho",
+    desc: "Eu amo seu cabelo vermelho. Ele combina com sua força, sua beleza e esse brilho único que só você tem. ❤️"
   },
   {
-    icon: "🌟", name: "Sua Força",
-    desc: "Você enfrenta cada desafio com uma coragem que me inspira todos os dias. 💪"
+    icon: "😊", name: "Seu Sorriso",
+    desc: "Seu sorriso perfeitamente reto é uma das coisas mais lindas que eu já vi. Ele melhora qualquer dia meu. 💕"
   },
   {
-    icon: "💝", name: "Seu Amor",
-    desc: "A forma como você ama me faz sentir em casa onde quer que a gente esteja. 🏡"
+    icon: "💖", name: "Seu Coração",
+    desc: "Você tem um coração enorme, cheio de carinho, cuidado e amor nos detalhes mais simples."
+  },
+  {
+    icon: "🕊️", name: "Sua Paciência",
+    desc: "Eu admiro a paciência que você tem. Você consegue cuidar, ouvir e estar presente de um jeito muito especial."
+  },
+  {
+    icon: "👵", name: "Com Minha Avó",
+    desc: "O cuidado que você tem com minha avó me emociona. Isso mostra a pessoa linda que você é por dentro."
+  },
+  {
+    icon: "🧸", name: "Com as Crianças",
+    desc: "Ver o jeito que você trata as crianças, com carinho e delicadeza, faz meu amor por você crescer ainda mais."
   },
   {
     icon: "🌸", name: "Sua Leveza",
-    desc: "Você ilumina qualquer ambiente só de entrar. É uma luz que não se apaga. ✨"
+    desc: "Você deixa tudo mais leve. Até os dias difíceis ficam melhores quando tenho você por perto."
   },
   {
-    icon: "🎮", name: "Seus Gostos",
-    desc: "Descobrir o que você ama é uma das minhas partes favoritas de te conhecer. 🕹️"
-  },
-  {
-    icon: "🌙", name: "Sua Calma",
-    desc: "Nos momentos difíceis, seu abraço é o único lugar onde tudo faz sentido. 🤗"
-  },
-  {
-    icon: "📚", name: "Curiosidade",
-    desc: "Você está sempre aprendendo, crescendo, me surpreendendo. Nunca enjoo de te conhecer. 📖"
+    icon: "🏡", name: "Meu Lar",
+    desc: "Com você, qualquer lugar vira casa. Seu abraço é um dos lugares mais seguros do mundo para mim."
   },
   {
     icon: "✨", name: "Sua Magia",
-    desc: "Você transforma o ordinário em extraordinário. Com você, tudo é mais especial. 🪄"
+    desc: "Você tem uma magia própria. Transforma momentos simples em lembranças que eu quero guardar para sempre."
   },
   {
-    icon: "🍰", name: "Seus Gostos",
-    desc: "Até as coisas mais simples — um café, um filme, um passeio — ficam perfeitas ao seu lado. ☕"
+    icon: "🎮", name: "Minha Raridade",
+    desc: "Se a vida fosse Stardew Valley, você seria aquele item raro que ninguém consegue encontrar duas vezes. 💎"
   },
   {
-    icon: "🎵", name: "Sua Voz",
-    desc: "O som da sua voz é minha música favorita. Poderia ouvir o dia todo. 🎶"
+    icon: "🌙", name: "Minha Paz",
+    desc: "Você é calma no meio da bagunça, carinho no meio do cansaço e amor nos dias em que eu mais preciso."
   },
   {
-    icon: "💫", name: "Seus Sonhos",
-    desc: "Eu quero estar presente em cada sonho que você realizar. Torcer, comemorar, celebrar. 🌈"
-  },
-  {
-    icon: "🌺", name: "Só Você",
-    desc: "Não existe ninguém como você no mundo inteiro. E que sorte a minha te ter. 💖"
+    icon: "💍", name: "Só Você",
+    desc: "Não existe outra Natasha, outra Nathy, outro sorriso, outro jeito. É você. Sempre foi você. 💖"
   }
 ];
 
-/* --- FOTOS ---
-   COMO ADICIONAR FOTOS:
-   1. Coloque os arquivos de imagem na pasta "fotos/"
-   2. Descomente (remova as //) e preencha os campos abaixo
-   3. Adicione quantas quiser!
-
-   src: caminho da foto (ex: "fotos/foto1.jpg")
-   date: data do evento
-   caption: título curto
-   desc: descrição do que aconteceu nesse dia
-*/
+/* --- FOTOS --- */
 const FOTOS = [
-  // {
-  //   src: "fotos/foto1.jpg",
-  //   date: "14 de Fevereiro de 2025",
-  //   caption: "Nosso primeiro encontro",
-  //   desc: "O dia em que tudo começou..."
-  // },
-  // {
-  //   src: "fotos/foto2.jpg",
-  //   date: "20 de Março de 2025",
-  //   caption: "Nosso passeio no parque",
-  //   desc: "Uma tarde perfeita juntos."
-  // },
-  // {
-  //   src: "fotos/foto3.jpg",
-  //   date: "14 de Junho de 2025",
-  //   caption: "Dia dos Namorados ❤️",
-  //   desc: "Mais um dia dos namorados ao seu lado."
-  // },
+  {
+    src: null,
+    date: "Nossa memória favorita",
+    caption: "Eu e minha Nathy",
+    desc: "Aqui você pode colocar uma foto especial de vocês dois."
+  },
+  {
+    src: null,
+    date: "Um dia inesquecível",
+    caption: "Seu sorriso",
+    desc: "Uma lembrança para guardar esse sorriso lindo que eu amo tanto."
+  },
+  {
+    src: null,
+    date: "Nosso amor",
+    caption: "Mais um capítulo da nossa história",
+    desc: "Cada momento contigo vira uma memória bonita."
+  }
 ];
 
-/* --- CARTA ---
-   Escreva a carta de amor aqui. Use \n para pular linha. */
-const CARTA_TEXTO = `Edite este espaço para escrever sua carta de amor!
+/* --- CARTA --- */
+const CARTA_TEXTO = `Minha Nathy,
 
-Você pode contar como se sentiu quando a conheceu,
-o que mais ama nela, seus planos para o futuro...
+Feliz Dia dos Namorados, meu amor.
 
-Cada palavra que você escrever aqui vai ficar
-gravada para sempre nesse site, como uma
-lembrança eterna do amor de vocês.
+Eu fiz esse cantinho para tentar mostrar, de um jeito diferente, um pouco do quanto você é especial para mim. Mesmo assim, eu sei que nenhuma palavra consegue explicar tudo que eu sinto quando penso em você.
+
+Eu amo seu cabelo vermelho. Amo como ele combina com você, com sua personalidade, com sua beleza e com esse jeito único que faz você parecer uma pessoa rara no mundo.
+
+Eu amo seu sorriso perfeitamente reto. Amo quando você sorri e, por alguns segundos, parece que tudo fica mais bonito, mais calmo e mais certo.
+
+Mas acima de tudo, eu amo o seu coração.
+
+Eu admiro muito a paciência que você tem, o cuidado que você demonstra e a forma como você trata as pessoas. Ver o carinho que você tem com minha avó e com as crianças me faz enxergar, todos os dias, a mulher incrível que você é.
+
+Você tem um jeito de cuidar que não precisa de grandes palavras. Está nos detalhes, na atenção, no carinho e na forma como você torna os momentos mais leves.
+
+Obrigado por ser minha Nathy.
+Obrigado por estar comigo.
+Obrigado por fazer parte da minha vida de um jeito tão bonito.
+
+Eu te amo muito, e espero continuar escrevendo muitos capítulos dessa história ao seu lado.
 
 Com todo meu amor,`;
 
-/* --- DIÁRIO ---
-   Adicione entradas aqui para registrar os momentos de vocês!
-   Cada objeto é uma página do diário.
-
-   emoji:  ícone que aparece na linha do tempo (qualquer emoji)
-   date:   data do evento
-   title:  título curto da entrada
-   tag:    categoria (ex: "Encontro", "Viagem", "Aniversário"...)
-   text:   texto da entrada — pode ter quebras de linha (\n)
-   foto:   caminho da foto (ex: "fotos/diario1.jpg") ou null
-*/
+/* --- DIÁRIO --- */
 const DIARIO = [
-  // Exemplo de entrada — descomente e edite para adicionar!
-  // {
-  //   emoji: "💖",
-  //   date: "14 de Junho de 2025",
-  //   title: "Dia dos Namorados",
-  //   tag: "Data especial",
-  //   text: "Hoje criei esse site pra te mostrar o quanto te amo.\nEspero que você tenha sorrido muito. 😊",
-  //   foto: null
-  // },
-  // {
-  //   emoji: "🌸",
-  //   date: "__ de ______ de 20__",
-  //   title: "Título do momento",
-  //   tag: "Passeio",
-  //   text: "Escreva o que aconteceu nesse dia...",
-  //   foto: "fotos/diario1.jpg"
-  // },
+  {
+    emoji: "💖",
+    date: "12 de Junho de 2026",
+    title: "Feliz Dia dos Namorados, Nathy",
+    tag: "Data especial",
+    text: "Hoje eu fiz esse site para tentar mostrar um pedacinho do quanto você é importante para mim. Eu queria que cada detalhe lembrasse você: seu sorriso, seu cabelo vermelho, seu cuidado e o amor que eu sinto por você.",
+    foto: null
+  },
+  {
+    emoji: "🌹",
+    date: "Uma lembrança linda",
+    title: "O cabelo vermelho mais bonito",
+    tag: "Detalhe favorito",
+    text: "Eu amo seu cabelo vermelho. Ele é uma das primeiras coisas que me encantam em você, mas está longe de ser a única. Você é linda por fora e ainda mais linda por dentro.",
+    foto: null
+  },
+  {
+    emoji: "😊",
+    date: "Todos os dias",
+    title: "Seu sorriso",
+    tag: "Coisa que amo",
+    text: "Seu sorriso perfeitamente reto é uma das minhas coisas favoritas no mundo. Ele tem um jeito de melhorar meu dia sem precisar dizer nada.",
+    foto: null
+  },
+  {
+    emoji: "👵",
+    date: "Um gesto que me marca",
+    title: "Seu cuidado",
+    tag: "Admiração",
+    text: "Eu admiro muito a paciência e o cuidado que você tem com minha avó. Isso me mostra o tamanho do seu coração e me faz te amar ainda mais.",
+    foto: null
+  },
+  {
+    emoji: "🧸",
+    date: "Seu jeito especial",
+    title: "Com as crianças",
+    tag: "Carinho",
+    text: "O jeito que você trata as crianças, com atenção, paciência e carinho, é uma das coisas mais bonitas em você. Você tem uma luz muito especial.",
+    foto: null
+  }
 ];
 
-/* --- PRESENTE ---
-   Mensagem que aparece ao abrir o presente */
-const PRESENTE_MSG = `Meu presente pra você é simples:
-prometer estar aqui amanhã,
-e no dia depois, e no seguinte.
+/* --- PRESENTE --- */
+const PRESENTE_MSG = `Meu presente pra você, Nathy, é uma promessa simples:
 
-Feliz Dia dos Namorados! 💖`;
+continuar te escolhendo,
+continuar cuidando de você,
+continuar admirando seu sorriso,
+seu cabelo vermelho,
+sua paciência,
+seu carinho
+e esse coração lindo que você tem.
+
+Feliz Dia dos Namorados, meu amor.
+Eu te amo muito. 💖`;
 
 /* ============================================================
    FIM DA CONFIG — não precisa editar abaixo
 ============================================================ */
+```
+
 
 // ---- ESTAÇÕES ----
 const SEASONS = ['primavera','verao','outono','inverno'];
